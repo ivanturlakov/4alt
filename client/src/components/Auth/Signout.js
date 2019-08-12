@@ -42,11 +42,11 @@ const styles = {
     display: "flex"
   },
   buttonText: {
-    color: "purple"
+    color: "#ffffff"
   },
   buttonIcon: {
     marginLeft: "5px",
-    color: "purple"
+    color: "#ffffff"
   }
 };
 

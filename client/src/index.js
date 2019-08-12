@@ -2,7 +2,8 @@ import React, { useContext, useReducer } from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import App from "./pages/App";
+import Home from "./pages/Home";
+import Item from "./pages/Item";
 import Splash from "./pages/Splash";
 import ProtectedRoute from "./ProtectedRoute";
 import Context from "./context";
@@ -37,7 +38,8 @@ const Root = () => {
       <ApolloProvider client={client}>
         <Context.Provider value={{ state, dispatch }}>
           <Switch>
-            <ProtectedRoute exact path="/" component={App} />
+            <ProtectedRoute exact path="/" component={Home} />
+            <Route path="/items/:id" component={Item} />
             <Route path="/login" component={Splash} />
           </Switch>
         </Context.Provider>

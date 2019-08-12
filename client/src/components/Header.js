@@ -17,8 +17,8 @@ const Header = ({ classes }) => {
   return (
     <div className={classes.root}>
       <AppBar
-        position="absolute"
-        color="inherit"
+        position="sticky"
+        color="primary"
       >
         <Toolbar>
           {/* Title/Logo */}
@@ -30,7 +30,6 @@ const Header = ({ classes }) => {
               className={mobileSize ? classes.mobile : ""}
               component="h1"
               variant="h6"
-              color="inherit"
               noWrap
             >
               4alt
@@ -47,7 +46,6 @@ const Header = ({ classes }) => {
               <Typography
                 className={mobileSize ? classes.mobile : ""}
                 variant="h6"
-                color="initial"
                 noWrap
               >
                 {currentUser.name}
@@ -66,18 +64,19 @@ const Header = ({ classes }) => {
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    color: "default"
+    color: "default",
+    marginBottom: theme.spacing(3),
   },
   grow: {
     flexGrow: 1,
     display: "flex",
     alignItems: "center",
-    color: "purple"
+    color: "#ffffff"
   },
   icon: {
     // marginRight: theme.spacing(1),
-    color: "purple",
-    fontSize: 45
+    fontSize: 45,
+    color: "#ffffff"
   },
   mobile: {
     display: "none"

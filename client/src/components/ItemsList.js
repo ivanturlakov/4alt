@@ -1,14 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import differenceInMinutes from "date-fns/difference_in_minutes";
-import Container from '@material-ui/core/Container';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
+import { Container, Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography, Grid, Box } from '@material-ui/core';
 import DeleteIcon from "@material-ui/icons/DeleteTwoTone";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Subscription } from "react-apollo";
@@ -60,56 +53,47 @@ const Map = ({ classes }) => {
     <React.Fragment>
       <Container maxWidth="lg">
         <div className={mobileSize ? classes.rootMobile : classes.root}>
-          <div>
-            <Button onClick={() => handleAddItem()}>Add Item</Button>
-          </div>
-          {/* Get Items */}
-          {state.items.map((item, index) => (
-            // <div key={index}>
-            //   <img src={item.image} alt={item.title} />
-            //   <Typography>{item.title}</Typography>
-            //   <Typography>{item.description}</Typography>
-            //   <Typography>{item.category}</Typography>
-            //   <Typography>{item.author._id} | {state.currentUser._id}</Typography>
-            //   {isAuthUser(item) && (
-            //         <Button onClick={() => handleDeleteItem(item)}>
-            //           <DeleteIcon className={classes.deleteIcon}/>
-            //         </Button>
-            //       )}
-            // </div>
-
-            <Card className={classes.card} key={index}>
-              <CardActionArea>
-                <CardMedia
-                  className={classes.media}
-                  image={item.image}
-                  title={item.title}
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="h2">
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body2" color="textSecondary" component="p">
-                    {item.description}
-                  </Typography>
-                  <Typography>{item.category}</Typography>
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-                <Button size="small" color="primary">
-                  Share
-                </Button>
-                <Button size="small" color="primary">
-                  Learn More
-                </Button>
-                {isAuthUser(item) && (
-                  <Button onClick={() => handleDeleteItem(item)}>
-                    Delete <DeleteIcon className={classes.deleteIcon}/>
-                  </Button>
-                )}
-              </CardActions>
-            </Card>
-          ))}
+          <Grid container spacing={5}> 
+            <Grid item xs={12}>
+              <Box marginBottom={5}>
+                <Button onClick={() => handleAddItem()} size="large" className={classes.addButton}>Add Item</Button>
+              </Box>
+              {/* Blog Area to Add Item Content */}
+              <Blog />
+            </Grid>
+            {/* Get Items */}
+            {state.items.map((item, index) => (
+            <Grid item xs key={index}>
+              <Card className={classes.card}>
+                <CardActionArea>
+                  <CardMedia
+                    className={classes.media}
+                    image={item.image}
+                    title={item.title}
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="h2">
+                      {item.title}
+                    </Typography>
+                    {/* <Typography variant="body2" color="textSecondary" component="p">
+                      {item.description}
+                    </Typography> */}
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
+                  {isAuthUser(item) && (
+                    <Button onClick={() => handleDeleteItem(item)}>
+                      Delete <DeleteIcon className={classes.deleteIcon}/>
+                    </Button>
+                  )}
+                </CardActions>
+              </Card>
+            </Grid>
+            ))}
+            </Grid>
+          
+          
+          
 
           {/* Subscriptions for Create/Delete/Update Items */}
           <Subscription
@@ -138,9 +122,6 @@ const Map = ({ classes }) => {
               dispatch({ type: "DELETE_ITEM", payload: itemDeleted })
             }}
           />        
-
-          {/* Blog Area to Add Item Content */}
-          <Blog />
         </div>
       </Container>
     </React.Fragment>
@@ -150,18 +131,21 @@ const Map = ({ classes }) => {
 const styles = {
   root: {
     display: "flex",
-    marginTop: "100px",
   },
   rootMobile: {
     display: "flex",
     flexDirection: "column-reverse"
   },
   card: {
-    width: "25%",
+    width: "100%",
   },
   media: {
     height: 140,
   },
+  addButton: {
+    color: "#000000",
+    backgroundColor: "#cccccc"
+  }
 };
 
 export default withStyles(styles)(Map);

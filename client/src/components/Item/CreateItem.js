@@ -67,7 +67,7 @@ const CreateItem = ({ classes }) => {
         variant="h4"
         color="primary"
       >
-        <LandscapeIcon className={classes.iconLarge}/> Item Location
+        <LandscapeIcon className={classes.iconLarge}/> Item Description
       </Typography>
       <div>
         <TextField
@@ -138,6 +138,7 @@ const CreateItem = ({ classes }) => {
 
 const styles = theme => ({
   form: {
+    marginTop: theme.spacing(3),
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
