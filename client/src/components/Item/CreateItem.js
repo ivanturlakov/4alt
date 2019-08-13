@@ -17,7 +17,7 @@ import { CREATE_ITEM_MUTATION } from '../../graphql/mutations';
 
 const CreateItem = ({ classes }) => {
   const client = useClient();
-  const { state, dispatch } = useContext(Context);
+  const { dispatch } = useContext(Context);
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
@@ -138,6 +138,7 @@ const CreateItem = ({ classes }) => {
 
 const styles = theme => ({
   form: {
+    width: "100%",
     marginTop: theme.spacing(3),
     display: "flex",
     justifyContent: "center",

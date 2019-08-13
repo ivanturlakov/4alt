@@ -1,13 +1,11 @@
+import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { Container, Typography, Box, TextField, List, ListItem, ListItemAvatar, ListItemText, Avatar, Grid } from "@material-ui/core";
+import { Container, List, ListItem, ListItemAvatar, ListItemText, Avatar, Grid } from "@material-ui/core";
 import FolderIcon from '@material-ui/icons/Folder';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-
-import React, { useContext } from "react";
-import Context from "../context";
+// import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const Categories = ({ classes }) => {
-  const mobileSize = useMediaQuery('(max-width: 650px)');
+  // const mobileSize = useMediaQuery('(max-width: 650px)');
 
   return (
     <Container maxWidth="md">

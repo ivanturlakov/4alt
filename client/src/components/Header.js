@@ -6,6 +6,8 @@ import MoneyIcon from "@material-ui/icons/MoneyOffTwoTone";
 import Typography from "@material-ui/core/Typography";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
+import { Link } from "react-router-dom";
+
 import Context from "../context";
 import Signout from "../components/Auth/Signout";
 
@@ -22,7 +24,7 @@ const Header = ({ classes }) => {
       >
         <Toolbar>
           {/* Title/Logo */}
-          <div className={classes.grow}>
+          <Link to="/" className={classes.grow}>
             <MoneyIcon 
               className={classes.icon}
             />
@@ -34,7 +36,7 @@ const Header = ({ classes }) => {
             >
               4alt
             </Typography>
-          </div>
+          </Link>
           {/* Current User Info */}
           {currentUser && (
             <div className={classes.grow}>

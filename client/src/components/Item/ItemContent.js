@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import { Typography } from "@material-ui/core";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import FaceIcon from "@material-ui/icons/Face";
 import format from "date-fns/format";
@@ -12,6 +12,7 @@ import Context from "../../context";
 const ItemContent = ({ classes }) => {
   const { state } = useContext(Context);
   const { title, description, category, author, createdAt, comments } = state.currentItem;
+
   return (
     <div className={classes.root}>
       <Typography component="h2" variant="h4" color="primary" gutterBottom>
@@ -40,9 +41,9 @@ const ItemContent = ({ classes }) => {
 
 const styles = theme => ({
   root: {
-    padding: "1em 0.5em",
+    padding: 2,
     textAlign: "center",
-    width: "100%"
+    width: "40%"
   },
   icon: {
     marginLeft: theme.spacing(1),

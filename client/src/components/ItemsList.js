@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import differenceInMinutes from "date-fns/difference_in_minutes";
-import { Container, Card, CardActionArea, CardActions, CardContent, CardMedia, Button, Typography, Grid, Box } from '@material-ui/core';
+// import differenceInMinutes from "date-fns/difference_in_minutes";
+import { Container, Card, CardActionArea, CardContent, CardMedia, Button, Typography, Grid, Box, Fab } from '@material-ui/core';
 import DeleteIcon from "@material-ui/icons/DeleteTwoTone";
+import AddIcon from "@material-ui/icons/Add";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { Subscription } from "react-apollo";
 
@@ -10,13 +11,15 @@ import { useClient } from "../client";
 import { GET_ITEMS_QUERY } from "../graphql/queries";
 import { DELETE_ITEM_MUTATION } from "../graphql/mutations";
 import { ITEM_ADDED_SUBSCRIPTION, ITEM_DELETED_SUBSCRIPTION, ITEM_UPDATED_SUBSCRIPTION } from "../graphql/subscriptions";
-import Blog from "./Blog";
+import ItemDetails from "./ItemDetails";
 import Context from "../context";
 
 const Map = ({ classes }) => {
   const client = useClient();
   const mobileSize = useMediaQuery('(max-width: 650px)');
+
   const { state, dispatch } = useContext(Context);
+
   useEffect(() => {
     getItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -27,10 +30,10 @@ const Map = ({ classes }) => {
     dispatch({ type: "GET_ITEMS", payload: getItems })
   };
 
-  const highlightNewItem = item => {
-    const isNewItem = differenceInMinutes(Date.now(), Number(item.createdAt)) <= 30;
-    return isNewItem ? "limegreen" : "darkblue"
-  }
+  // const highlightNewItem = item => {
+  //   const isNewItem = differenceInMinutes(Date.now(), Number(item.createdAt)) <= 30;
+  //   return isNewItem ? "limegreen" : "darkblue"
+  // }
 
   const handleSelectItem = item => {
     dispatch({ type: "SET_ITEM", payload: item })
@@ -56,15 +59,17 @@ const Map = ({ classes }) => {
           <Grid container spacing={5}> 
             <Grid item xs={12}>
               <Box marginBottom={5}>
-                <Button onClick={() => handleAddItem()} size="large" className={classes.addButton}>Add Item</Button>
+                <Button variant="contained" color="primary" size="large" onClick={() => handleAddItem()}>
+                  <AddIcon className={classes.addIcon}/> Add Item
+                </Button>
               </Box>
-              {/* Blog Area to Add Item Content */}
-              <Blog />
+              {/* Area to Manage Item Content */}
+              <ItemDetails />
             </Grid>
             {/* Get Items */}
             {state.items.map((item, index) => (
-            <Grid item xs key={index}>
-              <Card className={classes.card}>
+            <Grid item xs={4} key={index}>
+              <Card className={classes.card} onClick={() => handleSelectItem(item)}>
                 <CardActionArea>
                   <CardMedia
                     className={classes.media}
@@ -72,28 +77,25 @@ const Map = ({ classes }) => {
                     title={item.title}
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
+                    <Typography className={classes.title} variant="h5" component="h2">
                       {item.title}
                     </Typography>
-                    {/* <Typography variant="body2" color="textSecondary" component="p">
+                    {/* <Typography className={classes.description} variant="body2" color="textSecondary" component="p">
                       {item.description}
                     </Typography> */}
                   </CardContent>
                 </CardActionArea>
-                <CardActions>
-                  {isAuthUser(item) && (
-                    <Button onClick={() => handleDeleteItem(item)}>
-                      Delete <DeleteIcon className={classes.deleteIcon}/>
-                    </Button>
-                  )}
-                </CardActions>
+                {isAuthUser(item) && (
+                  <Box className={classes.itemActions}>
+                    <Fab onClick={() => handleDeleteItem(item)} aria-label="delete" className={classes.fab}>
+                      <DeleteIcon />
+                    </Fab>
+                  </Box>
+                )}
               </Card>
             </Grid>
             ))}
-            </Grid>
-          
-          
-          
+          </Grid>
 
           {/* Subscriptions for Create/Delete/Update Items */}
           <Subscription
@@ -138,13 +140,24 @@ const styles = {
   },
   card: {
     width: "100%",
+    position: "relative"
   },
   media: {
-    height: 140,
+    height: 200,
   },
-  addButton: {
-    color: "#000000",
-    backgroundColor: "#cccccc"
+  title: {
+    width: "100%",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
+  itemActions: {
+    position: "absolute",
+    right: 10,
+    top: 10
+  },
+  addIcon: {
+    marginRight: 5,
   }
 };
 

@@ -1,12 +1,12 @@
 import { withStyles } from "@material-ui/core/styles";
-import { Container, Typography, Box, TextField } from "@material-ui/core";
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { Container, Box, TextField } from "@material-ui/core";
+// import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-import React, { useContext } from "react";
-import Context from "../context";
+import React from "react";
+// import Context from "../context";
 
 const Search = ({ classes }) => {
-  const mobileSize = useMediaQuery('(max-width: 650px)');
+  // const mobileSize = useMediaQuery('(max-width: 650px)');
 
   return (
     <Container maxWidth="lg">

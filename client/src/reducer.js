@@ -53,6 +53,11 @@ export default function reducer(state, { type, payload }) {
                 currentItem: payload,
                 draft: null
             };
+        case "DELETE_CURRENT_ITEM":
+            return {
+                ...state,
+                currentItem: null
+            };    
         case "DELETE_ITEM":
             const deletedItem = payload;
             const filteredItems = state.items.filter(item => item._id !== deletedItem._id);
