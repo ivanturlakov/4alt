@@ -18,6 +18,7 @@ export const GET_ITEMS_QUERY = `
       image
       description
       category
+      price
       author {
         _id
         name

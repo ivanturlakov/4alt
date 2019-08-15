@@ -3,13 +3,15 @@ export const CREATE_ITEM_MUTATION = `
         $title: String!,
         $image: String!,
         $description: String!,
-        $category: String!
+        $category: String!,
+        $price: String!,
     ) {
         createItem(input: {
             title: $title,
             image: $image,
             description: $description,
-            category: $category
+            category: $category,
+            price: $price
         }) {
                 _id
                 createdAt
@@ -17,6 +19,7 @@ export const CREATE_ITEM_MUTATION = `
                 image
                 description
                 category
+                price
                 author {
                     _id
                     name

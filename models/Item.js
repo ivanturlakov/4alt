@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
 
 const ItemSchema = new mongoose.Schema({
-    category: String,
     title: String,
     description: String,
     image: String,
+    category: String,
+    price: String,
     author: { type: mongoose.Schema.ObjectId, ref: "User" },
     comments: [
         {

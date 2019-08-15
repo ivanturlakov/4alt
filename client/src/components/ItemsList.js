@@ -77,9 +77,18 @@ const Map = ({ classes }) => {
                     title={item.title}
                   />
                   <CardContent>
-                    <Typography className={classes.title} variant="h5" component="h2">
-                      {item.title}
-                    </Typography>
+                    <Box display="flex">
+                      <Box flexGrow={1}>
+                        <Typography className={classes.title} variant="h6" component="h6">
+                          {item.title}
+                        </Typography>
+                      </Box>
+                      <Box>
+                        <Typography className={classes.price} variant="h6" component="h6">
+                          {item.price} ₿
+                        </Typography>
+                      </Box>
+                    </Box>
                     {/* <Typography className={classes.description} variant="body2" color="textSecondary" component="p">
                       {item.description}
                     </Typography> */}
@@ -150,6 +159,9 @@ const styles = {
     whiteSpace: "nowrap",
     overflow: "hidden",
     textOverflow: "ellipsis",
+  },
+  price: {
+    color: "red"
   },
   itemActions: {
     position: "absolute",

@@ -14,6 +14,7 @@ module.exports = gql`
         title: String
         description: String
         category: String
+        price: String
         image: String
         author: User
         comments: [Comment]
@@ -30,6 +31,7 @@ module.exports = gql`
         image: String
         description: String
         category: String
+        price: String
     }
 
     type Query {

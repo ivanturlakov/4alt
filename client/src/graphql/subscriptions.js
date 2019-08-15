@@ -9,6 +9,7 @@ export const ITEM_ADDED_SUBSCRIPTION = gql`
             image
             description
             category
+            price
             author {
                 _id
                 name
@@ -35,6 +36,7 @@ export const ITEM_UPDATED_SUBSCRIPTION = gql`
             title
             description
             category
+            price
             image
             author {
                 _id

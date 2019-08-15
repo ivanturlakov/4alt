@@ -1,15 +1,12 @@
 import React, { useState, useContext } from "react";
 import axios from "axios";
 import { withStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import { TextField, Typography, Button, Input, Select, MenuItem } from "@material-ui/core";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhotoTwoTone";
-import LandscapeIcon from "@material-ui/icons/LandscapeOutlined";
+import AssignmentIcon from "@material-ui/icons/AssignmentOutlined";
 import ClearIcon from "@material-ui/icons/Clear";
 import SaveIcon from "@material-ui/icons/SaveTwoTone";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { Input } from "@material-ui/core";
 
 import Context from "../../context";
 import { useClient } from "../../client";
@@ -21,16 +18,24 @@ const CreateItem = ({ classes }) => {
   const [title, setTitle] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("Category");
+  const [price, setPrice] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const mobileSize = useMediaQuery('(max-width: 650px)');
+
+  // Categories
+  const None = "Category";
+  const Auto = "Auto";
+  const Moto = "Moto";
+  const MTB = "MTB";
+  const RealEstate = "Real Estate";
 
   const handleSubmit = async event => {
     try {
       event.preventDefault();
       setSubmitting(true);
       const url = await handleImageUpload();
-      const variables = { title, image: url, description, category };
+      const variables = { title, image: url, description, category, price };
       await client.request(CREATE_ITEM_MUTATION, variables);
       handleDeleteDraft();
     } catch (err) {
@@ -55,6 +60,7 @@ const CreateItem = ({ classes }) => {
     setTitle("");
     setDescription("");
     setCategory("");
+    setPrice("");
     setImage("");
     dispatch({ type: "DELETE_DRAFT" });
   }
@@ -67,13 +73,15 @@ const CreateItem = ({ classes }) => {
         variant="h4"
         color="primary"
       >
-        <LandscapeIcon className={classes.iconLarge}/> Item Description
+        <AssignmentIcon className={classes.iconLarge}/> Description
       </Typography>
       <div>
         <TextField
           name="title"
           label="Title"
+          value={title}
           onChange={e => setTitle(e.target.value)}
+          className={classes.titleInput}
         />
         <Input
           accept="image/*"
@@ -84,10 +92,10 @@ const CreateItem = ({ classes }) => {
         />
         <label htmlFor="image">
           <Button
-            style={{ color: image && "green" }}
+            style={{ color: image && "teal" }}
             component="span"
             size="small"
-            className={classes.button}
+            className={classes.buttonImage}
           >
             <AddAPhotoIcon />
           </Button>
@@ -106,10 +114,26 @@ const CreateItem = ({ classes }) => {
         />
       </div>
       <div className={classes.descriptionField}>
-        <TextField
-          name="category"
+        <Select
+          value={category}
           label="Category"
           onChange={e => setCategory(e.target.value)}
+          className={classes.categorySelect}
+        >
+          <MenuItem value={None}>Category</MenuItem>
+          <MenuItem value={Auto}>Auto</MenuItem>
+          <MenuItem value={Moto}>Moto</MenuItem>
+          <MenuItem value={MTB}>MTB</MenuItem>
+          <MenuItem value={RealEstate}>Real Estate</MenuItem>
+        </Select>
+      </div>
+      <div className={classes.descriptionField}>
+        <TextField
+          name="price"
+          label="Price in BTC"
+          value={price}
+          onChange={e => setPrice(e.target.value)}
+          className={classes.priceInput}
         />
       </div>
       <div>
@@ -139,17 +163,13 @@ const CreateItem = ({ classes }) => {
 const styles = theme => ({
   form: {
     width: "100%",
-    marginTop: theme.spacing(3),
     display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
     flexDirection: "column",
     paddingBottom: theme.spacing(1)
   },
   descriptionField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: "95%"
+    width: "100%",
+    marginBottom: 25,
   },
   input: {
     display: "none"
@@ -174,6 +194,20 @@ const styles = theme => ({
     marginTop: theme.spacing(2),
     marginBottom: theme.spacing(2),
     marginRight: theme.spacing(2),
+    marginLeft: 0
+  },
+  categorySelect: {
+    width: "50%",
+  },
+  titleInput: {
+    width: "90%"
+  },
+  priceInput: {
+    width: "50%",
+  },
+  buttonImage: {
+    marginTop: theme.spacing(2),
+    marginBottom: theme.spacing(2),
     marginLeft: 0
   }
 });

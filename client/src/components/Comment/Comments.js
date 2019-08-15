@@ -22,7 +22,7 @@ const Comments = ({ comments, classes }) => (
               <Typography className={classes.inline} component="span" color="textPrimary">
                 {comment.author.name}
               </Typography>
-              <span className={classes.ago}>{distanceInWordsToNow(Number(comment.createdAt))} ago</span>
+              <span className={classes.ago}> {distanceInWordsToNow(Number(comment.createdAt))} ago</span>
             </>
           }
         />

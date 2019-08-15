@@ -1,5 +1,5 @@
 import { withStyles } from "@material-ui/core/styles";
-import { Drawer, Box } from "@material-ui/core";
+import { Drawer, Box, CircularProgress } from "@material-ui/core";
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import React, { useContext } from "react";
@@ -16,7 +16,11 @@ const ItemDetails = ({ classes }) => {
   let DetailsContent;
 
   const NoContent = () => {
-    return <div>No content</div>;
+    return (
+      <div className={classes.spinnerBox}>
+        <CircularProgress color="primary" />
+      </div>
+    );
   };
 
   if(!draft && !currentItem) {
@@ -50,7 +54,7 @@ const styles = {
     width: "50vw",
     display: "flex",
     justifyContent: "center",
-    padding: 20,
+    padding: 30,
   },
   rootMobile: {
     maxWidth: "100%",
@@ -58,6 +62,13 @@ const styles = {
     overflowX: "hidden",
     overflowY: "scroll",
     paddingTop: "56px"
+  },
+  spinnerBox: {
+    height: "100vh",
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center"
   }
 };
 

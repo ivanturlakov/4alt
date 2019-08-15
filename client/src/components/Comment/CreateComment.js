@@ -54,7 +54,8 @@ const CreateComment = ({ classes }) => {
 const styles = theme => ({
   form: {
     display: "flex",
-    alignItems: "center"
+    alignItems: "center",
+    marginTop: 25,
   },
   input: {
     marginLeft: 8,
@@ -66,7 +67,7 @@ const styles = theme => ({
   },
   sendButton: {
     padding: 0,
-    color: theme.palette.secondary.dark
+    color: theme.palette.primary.dark
   }
 });
 
